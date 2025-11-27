@@ -1,30 +1,29 @@
 # ia_peso.py (EXPANDIDO)
+#Implementação do nosso Machine Learning
 
 import numpy as np
 import pandas as pd
-# Adicionando Regressão Linear para a nova previsão
+# Regressão Linear para a nova previsão
 from sklearn.linear_model import LogisticRegression, LinearRegression 
 
 class IAPreditorPeso:
     def __init__(self):
         # Modelo para PREVISÃO DE TENDÊNCIA (usando Regressão Logística)
         self.modelo_tendencia = LogisticRegression(max_iter=1000)
-        # Novo modelo para PREVISÃO DE PESO FUTURO (usando Regressão Linear)
         self.modelo_peso_futuro = LinearRegression()
         self.treinou = False
 
     def gerar_dataset_sintetico(self, n=2500):
-        # Aumentando o dataset para melhor treinamento
+        #Geração do dataset sintetico (2500 linhas) com variáveis adicionais
         dados = []
         for _ in range(n):
             calorias_meta = np.random.randint(1500, 3000)
-            calorias_consumidas = calorias_meta + np.random.randint(-1200, 1200) # Maior variação
+            calorias_consumidas = calorias_meta + np.random.randint(-1200, 1200)
             atividade = np.random.choice([1, 2, 3])
             peso_atual = np.random.uniform(50, 120)
-            altura = np.random.uniform(1.50, 1.90) # Nova variável para IMC e peso futuro
+            altura = np.random.uniform(1.50, 1.90)
             saldo = calorias_consumidas - calorias_meta
             
-            # Lógica de Tendência (igual a anterior)
             if saldo > 350:
                 tendencia = 1
             elif saldo < -350:
@@ -33,7 +32,6 @@ class IAPreditorPeso:
                 tendencia = 0
                 
             # Lógica para Peso Futuro (Exemplo Simplificado: 
-            # peso futuro é afetado pelo peso atual e o saldo calórico)
             # Saldo positivo -> Ganho de peso; Saldo negativo -> Perda de peso
             peso_futuro = peso_atual + (saldo / 7700) * 1.5 # 7700 kcal ~= 1kg
             
@@ -48,13 +46,12 @@ class IAPreditorPeso:
     def treinar(self):
         df = self.gerar_dataset_sintetico()
         
-        # Treinando o modelo de TENDÊNCIA
+        # Treinamento do modelo de TENDÊNCIA
         X_tendencia = df[["cal_consumidas", "cal_meta", "saldo", "atividade", "peso_atual"]]
         y_tendencia = df["tendencia"]
         self.modelo_tendencia.fit(X_tendencia, y_tendencia)
         
-        # Treinando o modelo de PESO FUTURO
-        # Features para o peso futuro (saldo calórico e peso atual)
+        # Treinamento do modelo de PESO FUTURO
         X_peso_futuro = df[["saldo", "peso_atual"]]
         y_peso_futuro = df["peso_futuro"]
         self.modelo_peso_futuro.fit(X_peso_futuro, y_peso_futuro)
@@ -86,7 +83,7 @@ class IAPreditorPeso:
         """Calcula o Índice de Massa Corporal (IMC)"""
         # IMC = peso / altura²
         if altura <= 0:
-             return 0.0 # Evita divisão por zero
+             return 0.0
         imc = peso_atual / (altura ** 2)
         return float(imc)
         

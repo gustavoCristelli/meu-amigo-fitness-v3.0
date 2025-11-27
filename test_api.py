@@ -1,4 +1,5 @@
 #test_api.py
+#Teste simples da API Flask
 
 import requests
 import json

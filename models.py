@@ -1,4 +1,5 @@
 #models.py
+#Modelos de banco de dados usando SQLAlchemy
 
 from flask_sqlalchemy import SQLAlchemy
 

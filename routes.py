@@ -1,3 +1,6 @@
+#routes.py
+#Configuração das rotas da API Flask
+
 from flask import request, jsonify
 from models import db, Usuario, RegistroDiario
 from logic import analisar_registro, analisar_usuario

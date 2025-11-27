@@ -1,4 +1,5 @@
 #app.py
+#Aplicativo Flask criado e configurado
 
 from flask import Flask
 from flask_cors import CORS
