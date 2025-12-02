@@ -14,7 +14,7 @@ class IAPreditorPeso:
         self.treinou = False
 
     def gerar_dataset_sintetico(self, n=2500):
-        #Geração do dataset sintetico (2500 linhas) com variáveis adicionais
+        #Geração do dataset sintetico (2500 linhas)
         dados = []
         for _ in range(n):
             calorias_meta = np.random.randint(1500, 3000)

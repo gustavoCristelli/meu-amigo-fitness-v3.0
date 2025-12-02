@@ -74,9 +74,9 @@ def configure_routes(app):
             calorias_consumidas,
             atividade,
             peso_atual,
-            altura, # NOVO PARÂMETRO
+            altura,
             idade,
-            sexo, # Este é o string "M" ou "F" que será ignorado/convertido no logic.py
+            sexo,
             massa_gorda
         )
         
